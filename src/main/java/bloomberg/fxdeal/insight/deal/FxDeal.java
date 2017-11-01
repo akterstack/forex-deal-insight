@@ -50,4 +50,9 @@ public class FxDeal {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return uuid + ":" + fromCurrency;
+    }
 }
