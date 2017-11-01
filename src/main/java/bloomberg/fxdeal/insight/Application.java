@@ -14,10 +14,10 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @PostConstruct
+    //@PostConstruct
     void setUp() {
         System.out.println("////////////////////////////////////////////////////////////////");
-        Utils.loadObjectList(FxDeal.class, new File("BloombergFXD.csv"));
+        Utils.loadObjectList(FxDeal.class, new File("BloombergFxD.csv"));
     }
 
 }
