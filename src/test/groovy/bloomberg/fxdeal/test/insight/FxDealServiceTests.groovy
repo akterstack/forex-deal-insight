@@ -1,6 +1,7 @@
 package bloomberg.fxdeal.test.insight
 
 import bloomberg.fxdeal.insight.Application
+import bloomberg.fxdeal.insight.Utils
 import bloomberg.fxdeal.insight.deal.FxDeal
 import bloomberg.fxdeal.insight.deal.FxDealRepository
 import bloomberg.fxdeal.insight.deal.FxDealService
@@ -20,9 +21,6 @@ class FxDealServiceTests {
     @Autowired
     FxDealService fxDealService
 
-    @Autowired
-    FxDealRepository fxDealRepository
-
     @Test
     void saveFxDeal() {
         Iterable<FxDeal> fxDeals = fxDealService.saveAll([
@@ -35,6 +33,15 @@ class FxDealServiceTests {
                 )
         ])
         Assert.notEmpty(fxDeals.toList(), "Deal not saved")
+    }
+
+    @Test
+    void importFxDeals() {
+        List<FxDeal> fxDealsToImport = Utils.loadObjectList(FxDeal, new File("BloombergFxD.csv"))
+        long start = System.currentTimeMillis()
+        fxDealService.saveAll(fxDealsToImport)
+        println System.currentTimeMillis() - start
+        println('//////////////////////////////////////////////////////')
     }
 
 }
