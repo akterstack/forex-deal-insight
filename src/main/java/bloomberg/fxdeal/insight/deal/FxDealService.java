@@ -17,8 +17,8 @@ public class FxDealService {
     }
 
     @Transactional
-    public void saveAll(List<FxDeal> fxDeals) {
-        fxDealRepository.save(fxDeals);
+    public Iterable<FxDeal> saveAll(List<FxDeal> fxDeals) {
+        return fxDealRepository.save(fxDeals);
     }
 
 }

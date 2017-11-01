@@ -9,6 +9,7 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import org.springframework.util.Assert
 
 import java.sql.Timestamp
 
@@ -24,7 +25,7 @@ class FxDealServiceTests {
 
     @Test
     void saveFxDeal() {
-        FxDeal fxDeal = fxDealRepository.save(
+        Iterable<FxDeal> fxDeals = fxDealService.saveAll([
                 new FxDeal(
                         uuid: UUID.randomUUID(),
                         fromCurrency: Currency.getInstance("USD"),
@@ -32,9 +33,8 @@ class FxDealServiceTests {
                         timestamp: new Timestamp(System.currentTimeMillis()),
                         amount: 100
                 )
-        )
-        println("-----------------------==================================")
-        println fxDeal
+        ])
+        Assert.notEmpty(fxDeals.toList(), "Deal not saved")
     }
 
 }
