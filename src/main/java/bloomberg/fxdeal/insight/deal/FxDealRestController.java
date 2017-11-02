@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/deals")
@@ -18,12 +20,11 @@ public class FxDealRestController {
     }
 
     @GetMapping
-    public Iterable<FxDeal> test() {
+    public Long test() {
+        List<FxDeal> fxDealsToSave = Utils.loadObjectList(FxDeal.class, new File("BloombergFxD.csv"));
         long start = System.currentTimeMillis();
-        Iterable<FxDeal> fxDeals = fxDealRepository.save(
-                Utils.loadObjectList(FxDeal.class, new File("BloombergFxD.csv")));
-        System.out.println("---------------------- " + ((System.currentTimeMillis() - start)/1000));
-        return fxDeals;
+        fxDealRepository.save(fxDealsToSave);
+        return (System.currentTimeMillis() - start)/1000;
     }
 
 }

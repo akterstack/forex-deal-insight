@@ -23,15 +23,18 @@ class FxDealServiceTests {
 
     @Test
     void saveFxDeal() {
+        long start = System.currentTimeMillis()
         Iterable<FxDeal> fxDeals = fxDealService.saveAll([
                 new FxDeal(
-                        uuid: null,
+                        uuid: UUID.randomUUID(),
                         fromCurrency: Currency.getInstance("USD"),
                         toCurrency: Currency.getInstance("BDT"),
                         timestamp: new Timestamp(System.currentTimeMillis()),
                         amount: 100
                 )
         ])
+        println System.currentTimeMillis() - start
+        println('//////////////////////////////////////////////////////')
         Assert.notEmpty(fxDeals.toList(), "Deal not saved")
     }
 
