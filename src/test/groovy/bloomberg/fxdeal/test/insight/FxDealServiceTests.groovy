@@ -25,7 +25,7 @@ class FxDealServiceTests {
     void saveFxDeal() {
         Iterable<FxDeal> fxDeals = fxDealService.saveAll([
                 new FxDeal(
-                        uuid: UUID.randomUUID(),
+                        uuid: null,
                         fromCurrency: Currency.getInstance("USD"),
                         toCurrency: Currency.getInstance("BDT"),
                         timestamp: new Timestamp(System.currentTimeMillis()),

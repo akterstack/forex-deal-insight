@@ -1,14 +1,29 @@
 package bloomberg.fxdeal.insight.deal;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Currency;
 
 public class FxDeal {
 
+    @Id
+    private String id;
+
+    @Indexed @NotNull(message = "UUID cannot be null")
     private String uuid;
+
+    @NotNull(message = "Order Currency from cannot be null")
     private Currency fromCurrency;
+
+    @NotNull(message = "Currency to convert to cannot be null")
     private Currency toCurrency;
+
     private Timestamp timestamp;
+
+    @NotNull(message = "Amount cannot be null")
     private Double amount;
 
     public String getUuid() {

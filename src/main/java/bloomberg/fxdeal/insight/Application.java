@@ -1,11 +1,10 @@
 package bloomberg.fxdeal.insight;
 
-import bloomberg.fxdeal.insight.deal.FxDeal;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.PostConstruct;
-import java.io.File;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 @SpringBootApplication
 public class Application {
@@ -14,10 +13,14 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    //@PostConstruct
-    void setUp() {
-        System.out.println("////////////////////////////////////////////////////////////////");
-        Utils.loadObjectList(FxDeal.class, new File("BloombergFxD.csv"));
+    @Bean
+    public ValidatingMongoEventListener validatingMongoEventListener() {
+        return new ValidatingMongoEventListener(validator());
+    }
+
+    @Bean
+    public LocalValidatorFactoryBean validator() {
+        return new LocalValidatorFactoryBean();
     }
 
 }
