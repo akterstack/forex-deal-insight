@@ -1,5 +1,7 @@
 package bloomberg.fxdeal.insight;
 
+import bloomberg.fxdeal.insight.deal.FxDeal;
+
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.io.IOException;
@@ -39,11 +41,12 @@ public class SpliteratorBenchmark {
 
     private static long processLine(String line) {
         final long localStart = System.nanoTime();
-        double d = 0;
+        Utils.loadObjectList(FxDeal.class, line);
+        /*double d = 0;
         for (int i = 0; i < line.length(); i++)
             for (int j = 0; j < line.length(); j++)
                 d += Math.pow(line.charAt(i), line.charAt(j) / 32.0);
-        sink += d;
+        sink += d;*/
         return System.nanoTime() - localStart;
     }
 
